@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import pathlib
 import time
@@ -7,13 +8,13 @@ import click
 import numpy as np
 from tqdm import trange
 
-from mixed_io_cpu_task.cropping import crop_with_pil
+from mixed_io_cpu_task.cropping import crop_with_pil_async
 from mixed_io_cpu_task.io_utils import (
-    download_crops_and_image,
-    save_image_buffers,
     remove_dir,
+    download_crops_and_image_async,
+    save_image_buffers_async,
+    remove_dir_async,
 )
-
 from mixed_io_cpu_task.logging_utils import configure_logger
 
 
@@ -23,35 +24,49 @@ from mixed_io_cpu_task.logging_utils import configure_logger
 @click.argument("output_dir", type=click.Path(path_type=str))
 @click.option("--num-repeats", "-r", default=1, help="Number of repeats")
 @click.option("--remove", "-rm", is_flag=True, help="Remove output dir before running")
-def serial(
+def asynchronous(
     input_image: str,
     crops: str,
     output_dir: str,
     num_repeats: int,
     remove: bool,
 ):
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(
+        _async_main(crops, input_image, num_repeats, output_dir, remove)
+    )
+
+
+async def _async_main(crops, input_image, num_repeats, output_dir, remove):
     logging.basicConfig()
     logger = logging.getLogger("default")
-
-    configure_logger(logger, "serial")
+    configure_logger(logger, "asynchronous")
     logger.debug(f"PIL: {PIL.__version__}")
     logger.debug(f"NumPy: {np.__version__}")
     start = time.perf_counter()
     logger.info(f"input image {input_image}, input crops {crops}")
-    if remove:
+    if remove and not output_dir.startswith("gs://"):
         logger.debug(f"Removing output dir {output_dir}")
         remove_dir(output_dir)
+    elif remove and output_dir.startswith("gs://"):
+        logger.debug(f"Removing output dir {output_dir}")
+        await remove_dir_async(output_dir)
     if not output_dir.startswith("gs://"):
         pathlib.Path(output_dir).mkdir(exist_ok=True, parents=True)
-
+    tasks = []
     for i in trange(num_repeats):
-        image_buffer, crops_to_cut = download_crops_and_image(
-            crops, input_image, trace_id=str(i)
-        )
-        buffers = crop_with_pil(image_buffer, crops_to_cut, trace_id=str(i))
-        save_image_buffers(buffers, output_dir, trace_id=str(i))
-
+        task = _process_task_async(crops, i, input_image, output_dir)
+        tasks.append(task)
+    await asyncio.gather(*tasks)
     elapsed = time.perf_counter() - start
     logger.info(
-        f"Elapsed {elapsed:.2f} seconds, average {num_repeats/elapsed:.2f} img/s"
+        f"Elapsed {elapsed:.2f} seconds, average {num_repeats / elapsed:.2f} img/s"
     )
+
+
+async def _process_task_async(crops, i, input_image, output_dir):
+    image_buffer, crops_to_cut = await download_crops_and_image_async(
+        crops, input_image, trace_id=str(i)
+    )
+    buffers = await crop_with_pil_async(image_buffer, crops_to_cut, trace_id=str(i))
+    await save_image_buffers_async(buffers, output_dir, trace_id=str(i))

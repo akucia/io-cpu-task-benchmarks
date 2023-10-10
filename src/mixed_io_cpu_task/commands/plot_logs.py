@@ -14,7 +14,7 @@ def plot_logs(input_log_file: pathlib.Path, plot_file_name: str = None):
     if "*" in str(input_log_file):
         glob_pattern = str(input_log_file.name)
         input_log_file = pathlib.Path(input_log_file).parent
-        log_files = list(input_log_file.glob(glob_pattern))
+        log_files = sorted(input_log_file.glob(glob_pattern))
         # filter out empty log files
         log_files = [log_file for log_file in log_files if log_file.stat().st_size != 0]
         fig, axarr = plt.subplots(len(log_files), sharex=True, figsize=(10, 10))
@@ -73,3 +73,8 @@ def _plot_file(input_log_file: pathlib.Path, ax=None):
         )
     # set plot title to log file name
     ax.set_title(input_log_file.name)
+    # add grids and subgrids
+    ax.grid(True)
+    # ax.minorticks_on()
+    ax.grid(which="minor", linestyle=":", linewidth="0.5", color="black")
+    ax.set_ylabel("trace id")
