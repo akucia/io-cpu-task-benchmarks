@@ -1,0 +1,33 @@
+version: 3
+
+tasks:
+  list-boards:
+    cmds:
+      - arduino-cli board list
+
+  compile-requirements:
+    desc: Compile requirements.in to requirements.txt
+    sources:
+        - requirements.in
+    cmds:
+      - pip-compile -o requirements.txt
+  install-requirements:
+    desc: Install or update python packages using requirements.txt
+    deps:
+      - compile-requirements
+    sources:
+      - requirements.txt
+    cmds:
+      - pip install -r requirements.txt
+  test:
+    desc: Run tests
+    cmds:
+      - pytest -v --cov=src --cov-report=term-missing --cov-fail-under=75 src/
+  benchmark-serial-local:
+    desc: Run benchmark for serial processing and local inputs and outputs
+    cmds:
+      - benchmarks serial IMG_3134.jpeg crops.csv results/ -r 10 -rm
+  benchmark-serial-remote:
+    desc: Run benchmark for serial processing and remote inputs and outputs
+    cmds:
+      - benchmarks serial gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 10 -rm

@@ -1,0 +1,9 @@
+click==8.1.7
+google-cloud-storage==2.11.0
+numpy==1.25.2
+Pillow==10.0.0
+tqdm==4.66.1
+python-json-logger==2.0.7
+pandas
+matplotlib
+distinctipy
