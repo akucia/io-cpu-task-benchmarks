@@ -1,0 +1,136 @@
+{"asctime": "2023-10-10 08:13:51,134", "levelname": "DEBUG", "name": "default", "message": "PIL: 10.0.0"}
+{"asctime": "2023-10-10 08:13:51,134", "levelname": "DEBUG", "name": "default", "message": "NumPy: 1.25.2"}
+{"asctime": "2023-10-10 08:13:51,134", "levelname": "INFO", "name": "default", "message": "input image IMG_3134.jpeg, input crops crops.csv"}
+{"asctime": "2023-10-10 08:13:51,134", "levelname": "DEBUG", "name": "default", "message": "Removing output dir results/"}
+{"asctime": "2023-10-10 08:13:51,135", "levelname": "DEBUG", "name": "default", "message": "Removing local dir results/"}
+{"asctime": "2023-10-10 08:13:51,191", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,195", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,195", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,198", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,408", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,519", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,523", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,523", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,525", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,527", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,529", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,532", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,534", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "0"}
+{"asctime": "2023-10-10 08:13:51,534", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,538", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,539", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,539", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,782", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,891", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,895", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,895", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,897", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,899", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,902", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,904", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,906", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "1"}
+{"asctime": "2023-10-10 08:13:51,906", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:51,910", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:51,910", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:51,911", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,101", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,220", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,223", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,224", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,226", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,228", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,231", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,233", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,235", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "2"}
+{"asctime": "2023-10-10 08:13:52,236", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,239", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,240", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,240", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,438", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,548", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,552", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,553", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,554", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,556", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,559", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,561", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,563", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "3"}
+{"asctime": "2023-10-10 08:13:52,564", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,565", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,566", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,566", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,758", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,866", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,870", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,870", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,872", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,873", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,875", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,878", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,880", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "4"}
+{"asctime": "2023-10-10 08:13:52,880", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:52,882", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:52,883", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:52,883", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,073", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,181", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,185", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,186", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,187", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,189", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,191", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,194", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,196", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "5"}
+{"asctime": "2023-10-10 08:13:53,196", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,198", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,199", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,199", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,389", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,499", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,503", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,503", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,505", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,507", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,510", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,512", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,515", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "6"}
+{"asctime": "2023-10-10 08:13:53,515", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,517", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,517", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,517", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,707", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,816", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,821", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,822", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,823", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,825", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,827", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,830", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,832", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "7"}
+{"asctime": "2023-10-10 08:13:53,832", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:53,836", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:53,837", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:53,837", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,025", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,133", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,138", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,139", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,140", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,143", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,145", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,147", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,149", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "8"}
+{"asctime": "2023-10-10 08:13:54,150", "levelname": "DEBUG", "name": "default", "message": "Downloading crops crops.csv and image IMG_3134.jpeg", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,153", "levelname": "DEBUG", "name": "default", "message": "Loaded 50 crops", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,154", "levelname": "DEBUG", "name": "default", "message": "Cropping image with PIL", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,154", "levelname": "DEBUG", "name": "default", "message": "Opened image with PIL", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,347", "levelname": "DEBUG", "name": "default", "message": "Cut 50 crops", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,457", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,463", "levelname": "DEBUG", "name": "default", "message": "Saving 50 images to results/", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,464", "levelname": "DEBUG", "name": "default", "message": "Saved crop 0 to storage", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,465", "levelname": "DEBUG", "name": "default", "message": "Saved crop 10 to storage", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,467", "levelname": "DEBUG", "name": "default", "message": "Saved crop 20 to storage", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,469", "levelname": "DEBUG", "name": "default", "message": "Saved crop 30 to storage", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,471", "levelname": "DEBUG", "name": "default", "message": "Saved crop 40 to storage", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,473", "levelname": "DEBUG", "name": "default", "message": "Saved 50 images", "trace_id": "9"}
+{"asctime": "2023-10-10 08:13:54,474", "levelname": "INFO", "name": "default", "message": "Elapsed 3.34 seconds, average 2.99 img/s"}
