@@ -40,7 +40,11 @@ def asynchronous(
 async def _async_main(crops, input_image, num_repeats, output_dir, remove):
     logging.basicConfig()
     logger = logging.getLogger("default")
-    configure_logger(logger, "asynchronous")
+    if "gs://" in output_dir:
+        log_filename = "asynchronous-remote"
+    else:
+        log_filename = "asynchronous"
+    configure_logger(logger, log_filename)
     logger.debug(f"PIL: {PIL.__version__}")
     logger.debug(f"NumPy: {np.__version__}")
     start = time.perf_counter()

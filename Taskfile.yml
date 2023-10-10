@@ -26,16 +26,32 @@ tasks:
   benchmark-serial-local:
     desc: Run benchmark for serial processing and local inputs and outputs
     cmds:
-      - benchmarks serial IMG_3134.jpeg crops.csv results/ -r 10 -rm
+      - benchmarks serial IMG_3134.jpeg crops.csv results/ -r 20 -rm
   benchmark-serial-remote:
     desc: Run benchmark for serial processing and remote inputs and outputs
     cmds:
-      - benchmarks serial gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 10 -rm
+      - benchmarks serial gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm
   benchmark-async-local:
     desc: Run benchmark for async processing and local inputs and outputs
     cmds:
-      - benchmarks asynchronous IMG_3134.jpeg crops.csv results/ -r 10 -rm
+      - benchmarks asynchronous IMG_3134.jpeg crops.csv results/ -r 20 -rm
   benchmark-async-remote:
     desc: Run benchmark for async processing and remote inputs and outputs
     cmds:
-      - benchmarks asynchronous gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 10 -rm
+      - benchmarks asynchronous gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm
+  benchmark-multithread-local:
+    desc: Run benchmark for multithread processing and local inputs and outputs
+    cmds:
+      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 20 -rm -e thread
+  benchmark-multithread-remote:
+    desc: Run benchmark for multithread processing and remote inputs and outputs
+    cmds:
+      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e thread
+  benchmark-multiprocess-local:
+    desc: Run benchmark for multiprocess processing and local inputs and outputs
+    cmds:
+      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 20 -rm -e process
+  benchmark-multiprocess-remote:
+    desc: Run benchmark for multiprocess processing and remote inputs and outputs
+    cmds:
+      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e process

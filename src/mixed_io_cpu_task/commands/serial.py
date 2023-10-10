@@ -33,7 +33,11 @@ def serial(
     logging.basicConfig()
     logger = logging.getLogger("default")
 
-    configure_logger(logger, "serial")
+    if "gs://" in output_dir:
+        log_filename = "serial-remote"
+    else:
+        log_filename = "serial"
+    configure_logger(logger, log_filename)
     logger.debug(f"PIL: {PIL.__version__}")
     logger.debug(f"NumPy: {np.__version__}")
     start = time.perf_counter()

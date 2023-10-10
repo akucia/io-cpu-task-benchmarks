@@ -41,6 +41,8 @@ def _plot_file(input_log_file: pathlib.Path, ax=None):
     # df contains columns asctime levelname name message trace_id
     df = pd.DataFrame.from_records(records)
     # drop rows without trace_id
+    if "trace_id" not in df.columns:
+        return
     df = df.dropna(subset=["trace_id"])
     # convert timestamp to datetime
     # asctime example "2023-10-09 08:09:54,867"
@@ -51,7 +53,7 @@ def _plot_file(input_log_file: pathlib.Path, ax=None):
     df["asctime"] = df["asctime"] - df["asctime"].min()
 
     # assign different color to every message
-    available_colors = distinctipy.get_colors(len(df["message"].unique()))
+    available_colors = distinctipy.get_colors(len(df["message"].unique()), rng=42)
     message_to_color = dict(zip(df["message"].unique(), available_colors))
     df["color"] = df["message"].map(message_to_color)
     # assign different y index to every trace id
@@ -68,13 +70,12 @@ def _plot_file(input_log_file: pathlib.Path, ax=None):
         ax.plot(
             [group["asctime"].min(), group["asctime"].max()],
             [point["y"], point["y"]],
-            linestyle="dashed",
+            linestyle=":",
             color="black",
+            linewidth=0.5,
         )
     # set plot title to log file name
     ax.set_title(input_log_file.name)
     # add grids and subgrids
-    ax.grid(True)
-    # ax.minorticks_on()
-    ax.grid(which="minor", linestyle=":", linewidth="0.5", color="black")
+    ax.grid()
     ax.set_ylabel("trace id")
