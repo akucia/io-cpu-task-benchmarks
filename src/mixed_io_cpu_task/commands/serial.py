@@ -30,24 +30,27 @@ def serial(
     num_repeats: int,
     remove: bool,
 ):
+    # setup logging
     logging.basicConfig()
     logger = logging.getLogger("default")
-
+    log_filename = "serial"
     if "gs://" in output_dir:
-        log_filename = "serial-remote"
+        log_filename += "-remote"
     else:
-        log_filename = "serial"
+        log_filename += "-local"
     configure_logger(logger, log_filename)
     logger.debug(f"PIL: {PIL.__version__}")
     logger.debug(f"NumPy: {np.__version__}")
-    start = time.perf_counter()
     logger.info(f"input image {input_image}, input crops {crops}")
+
+    # cleanup old data
     if remove:
         logger.debug(f"Removing output dir {output_dir}")
         remove_dir(output_dir)
     if not output_dir.startswith("gs://"):
         pathlib.Path(output_dir).mkdir(exist_ok=True, parents=True)
-
+    # start benchmark
+    start = time.perf_counter()
     for i in trange(num_repeats):
         image_buffer, crops_to_cut = download_crops_and_image(
             crops, input_image, trace_id=str(i)

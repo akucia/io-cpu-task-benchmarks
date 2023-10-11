@@ -40,6 +40,7 @@ def _plot_file(input_log_file: pathlib.Path, ax=None):
         return
     # df contains columns asctime levelname name message trace_id
     df = pd.DataFrame.from_records(records)
+    df = df.drop_duplicates()
     # drop rows without trace_id
     if "trace_id" not in df.columns:
         return
@@ -57,7 +58,8 @@ def _plot_file(input_log_file: pathlib.Path, ax=None):
     message_to_color = dict(zip(df["message"].unique(), available_colors))
     df["color"] = df["message"].map(message_to_color)
     # assign different y index to every trace id
-    df["y"] = df["trace_id"].astype("category").cat.codes
+    # df["y"] = df["trace_id"].astype("category").cat.codes
+    df["y"] = df["trace_id"].map(lambda x: int(x))
     # group by trace id and plot
     for trace_id, group in df.groupby("trace_id"):
         for _, point in group.iterrows():

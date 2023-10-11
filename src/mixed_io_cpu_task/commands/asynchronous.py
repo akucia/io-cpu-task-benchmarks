@@ -38,17 +38,20 @@ def asynchronous(
 
 
 async def _async_main(crops, input_image, num_repeats, output_dir, remove):
+    # configure logger
     logging.basicConfig()
     logger = logging.getLogger("default")
+    log_filename = "asynchronous"
     if "gs://" in output_dir:
-        log_filename = "asynchronous-remote"
+        log_filename += "-remote"
     else:
-        log_filename = "asynchronous"
+        log_filename += "-local"
     configure_logger(logger, log_filename)
     logger.debug(f"PIL: {PIL.__version__}")
     logger.debug(f"NumPy: {np.__version__}")
-    start = time.perf_counter()
     logger.info(f"input image {input_image}, input crops {crops}")
+
+    # cleanup old data
     if remove and not output_dir.startswith("gs://"):
         logger.debug(f"Removing output dir {output_dir}")
         remove_dir(output_dir)
@@ -57,6 +60,8 @@ async def _async_main(crops, input_image, num_repeats, output_dir, remove):
         await remove_dir_async(output_dir)
     if not output_dir.startswith("gs://"):
         pathlib.Path(output_dir).mkdir(exist_ok=True, parents=True)
+    # start benchmark
+    start = time.perf_counter()
     tasks = []
     for i in trange(num_repeats):
         task = _process_task_async(crops, i, input_image, output_dir)
