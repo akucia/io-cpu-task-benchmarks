@@ -4,13 +4,59 @@
 #
 #    pip-compile --output-file=requirements.txt
 #
+aiofiles==23.2.1
+    # via gcloud-aio-storage
+aiohttp==3.8.6
+    # via gcloud-aio-auth
+aiosignal==1.3.1
+    # via aiohttp
+async-timeout==4.0.3
+    # via aiohttp
+attrs==23.1.0
+    # via aiohttp
+backoff==2.2.1
+    # via
+    #   gcloud-aio-auth
+    #   gcloud-rest-auth
 cachetools==5.3.1
     # via google-auth
 certifi==2023.7.22
     # via requests
+cffi==1.16.0
+    # via cryptography
+chardet==5.2.0
+    # via
+    #   gcloud-aio-auth
+    #   gcloud-rest-auth
 charset-normalizer==3.3.0
-    # via requests
+    # via
+    #   aiohttp
+    #   requests
 click==8.1.7
+    # via -r requirements.in
+contourpy==1.1.1
+    # via matplotlib
+cryptography==41.0.4
+    # via
+    #   gcloud-aio-auth
+    #   gcloud-rest-auth
+cycler==0.12.1
+    # via matplotlib
+distinctipy==1.2.3
+    # via -r requirements.in
+fonttools==4.43.1
+    # via matplotlib
+frozenlist==1.4.0
+    # via
+    #   aiohttp
+    #   aiosignal
+gcloud-aio-auth==5.1.0
+    # via gcloud-aio-storage
+gcloud-aio-storage==9.0.0
+    # via -r requirements.in
+gcloud-rest-auth==5.1.0
+    # via gcloud-rest-storage
+gcloud-rest-storage==9.0.0
     # via -r requirements.in
 google-api-core==2.12.0
     # via
@@ -32,11 +78,32 @@ google-resumable-media==2.6.0
 googleapis-common-protos==1.60.0
     # via google-api-core
 idna==3.4
-    # via requests
+    # via
+    #   requests
+    #   yarl
+kiwisolver==1.4.5
+    # via matplotlib
+matplotlib==3.8.0
+    # via -r requirements.in
+multidict==6.0.4
+    # via
+    #   aiohttp
+    #   yarl
 numpy==1.25.2
+    # via
+    #   -r requirements.in
+    #   contourpy
+    #   distinctipy
+    #   matplotlib
+    #   pandas
+packaging==23.2
+    # via matplotlib
+pandas==2.1.1
     # via -r requirements.in
 pillow==10.0.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   matplotlib
 protobuf==4.24.4
     # via
     #   google-api-core
@@ -46,16 +113,43 @@ pyasn1==0.5.0
     #   pyasn1-modules
     #   rsa
 pyasn1-modules==0.3.0
-    # via google-auth
+    # via
+    #   gcloud-aio-storage
+    #   gcloud-rest-storage
+    #   google-auth
+pycparser==2.21
+    # via cffi
+pyjwt==2.8.0
+    # via
+    #   gcloud-aio-auth
+    #   gcloud-rest-auth
+pyparsing==3.1.1
+    # via matplotlib
+python-dateutil==2.8.2
+    # via
+    #   matplotlib
+    #   pandas
 python-json-logger==2.0.7
     # via -r requirements.in
+pytz==2023.3.post1
+    # via pandas
 requests==2.31.0
     # via
+    #   gcloud-rest-auth
     #   google-api-core
     #   google-cloud-storage
 rsa==4.9
-    # via google-auth
+    # via
+    #   gcloud-aio-storage
+    #   gcloud-rest-storage
+    #   google-auth
+six==1.16.0
+    # via python-dateutil
 tqdm==4.66.1
     # via -r requirements.in
+tzdata==2023.3
+    # via pandas
 urllib3==2.0.6
     # via requests
+yarl==1.9.2
+    # via aiohttp

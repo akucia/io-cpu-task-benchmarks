@@ -4,6 +4,8 @@ numpy==1.25.2
 Pillow==10.0.0
 tqdm==4.66.1
 python-json-logger==2.0.7
-pandas
-matplotlib
-distinctipy
+pandas~=2.1.1
+matplotlib~=3.8.0
+distinctipy~=1.2.3
+gcloud-aio-storage==9.0.0
+gcloud-rest-storage==9.0.0
