@@ -9,6 +9,7 @@ import os
 from google.cloud import storage
 
 from gcloud.aio.storage import Storage, Blob
+from aiohttp import ClientSession as Session
 
 logger = logging.getLogger("default")
 storage_client = storage.Client()

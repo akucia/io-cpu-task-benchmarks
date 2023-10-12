@@ -6,7 +6,9 @@ import time
 import PIL
 import click
 import numpy as np
-from tqdm import trange
+from gcloud.aio.storage import Storage
+from more_itertools import batched
+from tqdm.asyncio import tqdm
 
 from mixed_io_cpu_task.cropping import crop_with_pil_async
 from mixed_io_cpu_task.io_utils import (
@@ -24,20 +26,22 @@ from mixed_io_cpu_task.logging_utils import configure_logger
 @click.argument("output_dir", type=click.Path(path_type=str))
 @click.option("--num-repeats", "-r", default=1, help="Number of repeats")
 @click.option("--remove", "-rm", is_flag=True, help="Remove output dir before running")
+@click.option("--batch-size", "-b", default=10, help="Batch size")
 def asynchronous(
     input_image: str,
     crops: str,
     output_dir: str,
     num_repeats: int,
     remove: bool,
+    batch_size: int,
 ):
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(
-        _async_main(crops, input_image, num_repeats, output_dir, remove)
+        _async_main(crops, input_image, num_repeats, output_dir, remove, batch_size)
     )
 
 
-async def _async_main(crops, input_image, num_repeats, output_dir, remove):
+async def _async_main(crops, input_image, num_repeats, output_dir, remove, batch_size):
     # configure logger
     logging.basicConfig()
     logger = logging.getLogger("default")
@@ -62,15 +66,33 @@ async def _async_main(crops, input_image, num_repeats, output_dir, remove):
         pathlib.Path(output_dir).mkdir(exist_ok=True, parents=True)
     # start benchmark
     start = time.perf_counter()
-    tasks = []
-    for i in trange(num_repeats):
-        task = _process_task_async(crops, i, input_image, output_dir)
-        tasks.append(task)
-    await asyncio.gather(*tasks)
+    inputs = [(crops, i, input_image, output_dir) for i in range(num_repeats)]
+    for batch_input in batched(inputs, batch_size):
+        tasks = []
+        for task_input in batch_input:
+            task = _process_task_async(*task_input)
+            tasks.append(task)
+        for task in tqdm(asyncio.as_completed(tasks), total=batch_size, leave=True):
+            await task
+
+    # await asyncio.gather(*tasks)
     elapsed = time.perf_counter() - start
     logger.info(
         f"Elapsed {elapsed:.2f} seconds, average {num_repeats / elapsed:.2f} img/s"
     )
+
+    # validate the output dir contains the expected number of files
+    crops_per_image = 50  # TODO read from file
+    expected_files = num_repeats * crops_per_image
+    if not output_dir.startswith("gs://"):
+        assert len(list(pathlib.Path(output_dir).glob("*.jpg"))) == expected_files
+    else:
+        async with Storage() as client:
+            bucket_name = output_dir.split("/")[2]
+            bucket = client.get_bucket(bucket_name)
+
+            blobs = await bucket.list_blobs(prefix="/".join(output_dir.split("/")[3:]))
+            assert len(blobs) == expected_files
 
 
 async def _process_task_async(crops, i, input_image, output_dir):

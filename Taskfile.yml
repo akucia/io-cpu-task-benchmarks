@@ -71,7 +71,7 @@ tasks:
     desc: Run all benchmarks for remote inputs and outputs
     cmds:
       - benchmarks serial gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 5 -rm
-      - benchmarks asynchronous gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 10 -rm
-      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 10 -rm -e thread
-      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 10 -rm -e process
+      - benchmarks asynchronous gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm
+      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e thread
+      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e process
       - benchmarks plot-logs "./*remote.log" -p all-remote.png

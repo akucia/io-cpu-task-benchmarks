@@ -52,8 +52,8 @@ async def crop_with_pil_async(
     for crop in crops:
         buffer = BytesIO()
         crop.save(buffer, format="JPEG")
-        await asyncio.sleep(0)
         buffer.seek(0)
         buffers.append(buffer)
+        await asyncio.sleep(0)
     logger.debug(f"Saved {len(buffers)} images", extra={"trace_id": trace_id})
     return buffers
