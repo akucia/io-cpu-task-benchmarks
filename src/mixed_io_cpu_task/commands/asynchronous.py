@@ -66,14 +66,16 @@ async def _async_main(crops, input_image, num_repeats, output_dir, remove, batch
         pathlib.Path(output_dir).mkdir(exist_ok=True, parents=True)
     # start benchmark
     start = time.perf_counter()
-    inputs = [(crops, i, input_image, output_dir) for i in range(num_repeats)]
-    for batch_input in batched(inputs, batch_size):
-        tasks = []
-        for task_input in batch_input:
-            task = _process_task_async(*task_input)
-            tasks.append(task)
-        for task in tqdm(asyncio.as_completed(tasks), total=batch_size, leave=True):
-            await task
+    tasks = (
+        _process_task_async(crops, i, input_image, output_dir)
+        for i in range(num_repeats)
+    )
+    async for _ in tqdm(
+        limit_concurrency(tasks, batch_size),
+        total=num_repeats,
+        desc="Processing images",
+    ):
+        pass
 
     # await asyncio.gather(*tasks)
     elapsed = time.perf_counter() - start
@@ -101,3 +103,25 @@ async def _process_task_async(crops, i, input_image, output_dir):
     )
     buffers = await crop_with_pil_async(image_buffer, crops_to_cut, trace_id=str(i))
     await save_image_buffers_async(buffers, output_dir, trace_id=str(i))
+
+
+async def limit_concurrency(aws, limit):
+    aws = iter(aws)
+    aws_ended = False
+    pending = set()
+
+    while pending or not aws_ended:
+        while len(pending) < limit and not aws_ended:
+            try:
+                aw = next(aws)
+            except StopIteration:
+                aws_ended = True
+            else:
+                pending.add(asyncio.ensure_future(aw))
+
+        if not pending:
+            return
+
+        done, pending = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)
+        while done:
+            yield done.pop()

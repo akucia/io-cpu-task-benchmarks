@@ -7,6 +7,12 @@ It's a problem with both IO and CPU bound tasks.
 Checkout [Taskfile.yml](Taskfile.yml) for available commands.
 You'll need [Task](https://taskfile.dev) for that!
 # Plots
+
+Notes:
+- multiprocess benchmark uses 6 processes on a machine with 6 physcial cores and 12 logical cores.
+- multithread benchmark also uses 6 threads.
+
+
 ## Images read and saved from local disk
 ![all-local.png](all-local.png)
 

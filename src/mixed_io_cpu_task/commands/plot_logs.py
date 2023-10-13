@@ -17,11 +17,21 @@ def plot_logs(input_log_file: pathlib.Path, plot_file_name: str = None):
         log_files = sorted(input_log_file.glob(glob_pattern))
         # filter out empty log files
         log_files = [log_file for log_file in log_files if log_file.stat().st_size != 0]
-        fig, axarr = plt.subplots(len(log_files), sharex=True, figsize=(10, 10))
+        fig, axarr = plt.subplots(len(log_files), sharex=True, figsize=(15, 20))
         for log_file, ax in zip(log_files, axarr):
             # plot every file on a separate subplots vertically but keep them in the same figure sharing x-axis
-            _plot_file(log_file, ax=ax)
+            # plot labels only on the last subplot
+            _plot_file(log_file, ax=ax, labels=log_file == log_files[0])
+        # set x-axis label
         axarr[-1].set_xlabel("seconds")
+        # add legend on the right
+        fig.subplots_adjust(right=0.8)
+        axarr[0].legend(
+            loc="upper left",
+            bbox_to_anchor=(1.02, -0.5),
+            fancybox=False,
+            shadow=False,
+        )
         filename = plot_file_name or f"{input_log_file.parent.stem}.png"
         plt.savefig(filename)
     else:
@@ -30,7 +40,7 @@ def plot_logs(input_log_file: pathlib.Path, plot_file_name: str = None):
         plt.savefig(filename)
 
 
-def _plot_file(input_log_file: pathlib.Path, ax=None):
+def _plot_file(input_log_file: pathlib.Path, ax=None, labels=False):
     if ax is None:
         _, ax = plt.subplots()
 
@@ -52,21 +62,30 @@ def _plot_file(input_log_file: pathlib.Path, ax=None):
 
     # nomalize time to start from 0
     df["asctime"] = df["asctime"] - df["asctime"].min()
+    single_trace_id = list(set(df["trace_id"]))[0]
 
     # assign different color to every message
     available_colors = distinctipy.get_colors(len(df["message"].unique()), rng=42)
     message_to_color = dict(zip(df["message"].unique(), available_colors))
     df["color"] = df["message"].map(message_to_color)
     # assign different y index to every trace id
-    # df["y"] = df["trace_id"].astype("category").cat.codes
-    df["y"] = df["trace_id"].map(lambda x: int(x))
+    df["y"] = df["trace_id"].astype("category").cat.codes
+    df = df.sort_values(by=["y", "asctime"])
     # group by trace id and plot
     for trace_id, group in df.groupby("trace_id"):
+        # sort by asctime
         for _, point in group.iterrows():
+            message = point["message"]
+            # break message into lines if longer than 50 characters
+            if len(message) > 50:
+                message = "\n".join(
+                    [message[i : i + 50] for i in range(0, len(message), 50)]
+                )
             ax.scatter(
                 point["asctime"],
                 point["y"],
                 color=point["color"],
+                label=message if labels and trace_id == single_trace_id else None,
             )
         # draw dashed line from min to max asctime
         ax.plot(

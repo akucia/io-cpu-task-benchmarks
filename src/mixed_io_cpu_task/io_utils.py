@@ -75,7 +75,7 @@ def download_crops_and_image(
     crops_path: str, image_path: str, trace_id: str
 ) -> Tuple[BytesIO, List[Tuple[int, int, int, int]]]:
     logger.debug(
-        f"Downloading crops {crops_path} and image {image_path}",
+        f"Downloading crops csv and image",
         extra={"trace_id": trace_id},
     )
     if image_path.startswith("gs://"):
@@ -96,7 +96,7 @@ async def download_crops_and_image_async(
     crops_path: str, image_path: str, trace_id: str
 ) -> Tuple[BytesIO, List[Tuple[int, int, int, int]]]:
     logger.debug(
-        f"Downloading crops {crops_path} and image {image_path}",
+        f"Downloading crops csv and image",
         extra={"trace_id": trace_id},
     )
     if image_path.startswith("gs://"):
@@ -156,7 +156,7 @@ async def _load_gs_image_async(image_path: str) -> BytesIO:
 def save_image_buffers(buffers: List[BytesIO], save_dir: str, trace_id: str):
     """Saves image buffers to save_dir with random uuid as filename"""
     logger.debug(
-        f"Saving {len(buffers)} images to {save_dir}", extra={"trace_id": trace_id}
+        f"Saving {len(buffers)} images to {save_dir[:25]}", extra={"trace_id": trace_id}
     )
     for i, buffer in enumerate(buffers):
         filename = f"{uuid.uuid4()}.jpg"
@@ -164,11 +164,11 @@ def save_image_buffers(buffers: List[BytesIO], save_dir: str, trace_id: str):
             _save_gs_file(buffer, save_dir, filename)
         else:
             _save_local_file(buffer, save_dir, filename)
-        # log every 10 images:
-        if i % 10 == 0:
+        # log every 25 images:
+        if i % 25 == 0:
             logger.debug(f"Saved crop {i} to storage", extra={"trace_id": trace_id})
         buffer.close()
-    logger.debug(f"Saved {len(buffers)} images", extra={"trace_id": trace_id})
+    logger.debug(f"Saved all images", extra={"trace_id": trace_id})
 
 
 def _save_local_file(buffer: BytesIO, save_dir: str, filename: str) -> str:
@@ -204,7 +204,7 @@ async def save_image_buffers_async(
 ):
     """Saves image buffers to save_dir with random uuid as filename"""
     logger.debug(
-        f"Saving {len(buffers)} images to {save_dir}", extra={"trace_id": trace_id}
+        f"Saving {len(buffers)} images to {save_dir[:25]}", extra={"trace_id": trace_id}
     )
     tasks = []
     for i, buffer in enumerate(buffers):
@@ -214,8 +214,8 @@ async def save_image_buffers_async(
         else:
             task = _save_local_file_async(buffer, save_dir, filename)
         tasks.append(task)
-        # pause and log every 10 completed images
-        if i % 10 == 0:
+        # pause and log every 25 completed images
+        if i % 25 == 0:
             await asyncio.gather(*tasks)
             logger.debug(f"Saved crop {i} to storage", extra={"trace_id": trace_id})
             tasks = []
@@ -224,4 +224,4 @@ async def save_image_buffers_async(
     for buffer in buffers:
         buffer.close()
         await asyncio.sleep(0)
-    logger.debug(f"Saved {len(buffers)} images", extra={"trace_id": trace_id})
+    logger.debug(f"Saved all images", extra={"trace_id": trace_id})
