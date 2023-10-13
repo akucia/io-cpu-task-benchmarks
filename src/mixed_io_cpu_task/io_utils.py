@@ -215,6 +215,7 @@ async def save_image_buffers_async(
             task = _save_local_file_async(buffer, save_dir, filename)
         tasks.append(task)
         # pause and log every 25 completed images
+        # TODO use limit_concurrency()
         if i % 25 == 0:
             await asyncio.gather(*tasks)
             logger.debug(f"Saved crop {i} to storage", extra={"trace_id": trace_id})

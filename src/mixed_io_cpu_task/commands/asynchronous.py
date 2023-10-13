@@ -106,6 +106,9 @@ async def _process_task_async(crops, i, input_image, output_dir):
 
 
 async def limit_concurrency(aws, limit):
+    """Source: https://death.andgravity.com/limit-concurrency
+    Great blog post - you should check it out!
+    """
     aws = iter(aws)
     aws_ended = False
     pending = set()
