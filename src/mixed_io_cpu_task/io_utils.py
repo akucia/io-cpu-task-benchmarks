@@ -9,7 +9,6 @@ import os
 from google.cloud import storage
 
 from gcloud.aio.storage import Storage, Blob
-from aiohttp import ClientSession as Session
 
 logger = logging.getLogger("default")
 storage_client = storage.Client()
@@ -156,7 +155,7 @@ async def _load_gs_image_async(image_path: str) -> BytesIO:
 def save_image_buffers(buffers: List[BytesIO], save_dir: str, trace_id: str):
     """Saves image buffers to save_dir with random uuid as filename"""
     logger.debug(
-        f"Saving {len(buffers)} images to {save_dir[:25]}", extra={"trace_id": trace_id}
+        f"Saving {len(buffers)} images to {save_dir}", extra={"trace_id": trace_id}
     )
     for i, buffer in enumerate(buffers):
         filename = f"{uuid.uuid4()}.jpg"
@@ -204,7 +203,7 @@ async def save_image_buffers_async(
 ):
     """Saves image buffers to save_dir with random uuid as filename"""
     logger.debug(
-        f"Saving {len(buffers)} images to {save_dir[:25]}", extra={"trace_id": trace_id}
+        f"Saving {len(buffers)} images to {save_dir}", extra={"trace_id": trace_id}
     )
     tasks = []
     for i, buffer in enumerate(buffers):

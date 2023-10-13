@@ -64,6 +64,8 @@ def _plot_file(input_log_file: pathlib.Path, ax=None, labels=False):
     df["asctime"] = df["asctime"] - df["asctime"].min()
     single_trace_id = list(set(df["trace_id"]))[0]
 
+    # cut message to 100 characters
+    df["message"] = df["message"].map(lambda x: x[:100])
     # assign different color to every message
     available_colors = distinctipy.get_colors(len(df["message"].unique()), rng=42)
     message_to_color = dict(zip(df["message"].unique(), available_colors))
@@ -77,7 +79,7 @@ def _plot_file(input_log_file: pathlib.Path, ax=None, labels=False):
         for _, point in group.iterrows():
             message = point["message"]
             # break message into lines if longer than 50 characters
-            if len(message) > 50:
+            if len(message) > 30:
                 message = "\n".join(
                     [message[i : i + 50] for i in range(0, len(message), 50)]
                 )
