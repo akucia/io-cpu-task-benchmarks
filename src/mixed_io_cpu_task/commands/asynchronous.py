@@ -7,9 +7,9 @@ import PIL
 import click
 import numpy as np
 from gcloud.aio.storage import Storage
-from more_itertools import batched
 from tqdm.asyncio import tqdm
 
+from mixed_io_cpu_task.async_utils import limit_concurrency
 from mixed_io_cpu_task.cropping import crop_with_pil_async
 from mixed_io_cpu_task.io_utils import (
     remove_dir,
@@ -77,7 +77,6 @@ async def _async_main(crops, input_image, num_repeats, output_dir, remove, batch
     ):
         pass
 
-    # await asyncio.gather(*tasks)
     elapsed = time.perf_counter() - start
     logger.info(
         f"Elapsed {elapsed:.2f} seconds, average {num_repeats / elapsed:.2f} img/s"
@@ -103,28 +102,3 @@ async def _process_task_async(crops, i, input_image, output_dir):
     )
     buffers = await crop_with_pil_async(image_buffer, crops_to_cut, trace_id=str(i))
     await save_image_buffers_async(buffers, output_dir, trace_id=str(i))
-
-
-async def limit_concurrency(aws, limit):
-    """Source: https://death.andgravity.com/limit-concurrency
-    Great blog post - you should check it out!
-    """
-    aws = iter(aws)
-    aws_ended = False
-    pending = set()
-
-    while pending or not aws_ended:
-        while len(pending) < limit and not aws_ended:
-            try:
-                aw = next(aws)
-            except StopIteration:
-                aws_ended = True
-            else:
-                pending.add(asyncio.ensure_future(aw))
-
-        if not pending:
-            return
-
-        done, pending = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)
-        while done:
-            yield done.pop()

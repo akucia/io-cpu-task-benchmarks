@@ -10,6 +10,8 @@ from google.cloud import storage
 
 from gcloud.aio.storage import Storage, Blob
 
+from mixed_io_cpu_task.async_utils import limit_concurrency
+
 logger = logging.getLogger("default")
 storage_client = storage.Client()
 
@@ -199,7 +201,7 @@ async def _save_gs_file_async(buffer: BytesIO, save_dir: str, filename: str) -> 
 
 
 async def save_image_buffers_async(
-    buffers: List[BytesIO], save_dir: str, trace_id: str
+    buffers: List[BytesIO], save_dir: str, trace_id: str, save_batch_size: int = 15
 ):
     """Saves image buffers to save_dir with random uuid as filename"""
     logger.debug(
@@ -213,13 +215,11 @@ async def save_image_buffers_async(
         else:
             task = _save_local_file_async(buffer, save_dir, filename)
         tasks.append(task)
-        # pause and log every 25 completed images
-        # TODO use limit_concurrency()
-        if i % 25 == 0:
-            await asyncio.gather(*tasks)
+    done_counter = 0
+    async for _ in limit_concurrency(tasks, save_batch_size):
+        if done_counter % 25 == 0:
             logger.debug(f"Saved crop {i} to storage", extra={"trace_id": trace_id})
-            tasks = []
-    await asyncio.gather(*tasks)
+        done_counter += 1
 
     for buffer in buffers:
         buffer.close()

@@ -51,6 +51,10 @@ def _plot_file(input_log_file: pathlib.Path, ax=None, labels=False):
     # df contains columns asctime levelname name message trace_id
     df = pd.DataFrame.from_records(records)
     df = df.drop_duplicates()
+
+    # average speed is recorded int the last message
+    average_speed = df["message"].iloc[-1]
+
     # drop rows without trace_id
     if "trace_id" not in df.columns:
         return
@@ -70,9 +74,11 @@ def _plot_file(input_log_file: pathlib.Path, ax=None, labels=False):
     available_colors = distinctipy.get_colors(len(df["message"].unique()), rng=42)
     message_to_color = dict(zip(df["message"].unique(), available_colors))
     df["color"] = df["message"].map(message_to_color)
-    # assign different y index to every trace id
+
+    # assign unique category code to every trace id
     df["y"] = df["trace_id"].astype("category").cat.codes
-    df = df.sort_values(by=["y", "asctime"])
+
+    # df = df.sort_values(by=["y", "asctime"])
     # group by trace id and plot
     for trace_id, group in df.groupby("trace_id"):
         # sort by asctime
@@ -98,7 +104,7 @@ def _plot_file(input_log_file: pathlib.Path, ax=None, labels=False):
             linewidth=0.5,
         )
     # set plot title to log file name
-    ax.set_title(input_log_file.name)
+    ax.set_title(f"{input_log_file.name} : {average_speed}")
     # add grids and subgrids
     ax.grid()
     ax.set_ylabel("trace id")
