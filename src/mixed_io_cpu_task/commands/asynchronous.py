@@ -67,7 +67,9 @@ async def _async_main(crops, input_image, num_repeats, output_dir, remove, batch
     # start benchmark
     start = time.perf_counter()
     tasks = (
-        _process_task_async(crops, i, input_image, output_dir)
+        _process_task_async(
+            crops, i, input_image, output_dir, max_concurrency=batch_size
+        )
         for i in range(num_repeats)
     )
     async for _ in tqdm(
@@ -96,9 +98,11 @@ async def _async_main(crops, input_image, num_repeats, output_dir, remove, batch
             assert len(blobs) == expected_files
 
 
-async def _process_task_async(crops, i, input_image, output_dir):
+async def _process_task_async(crops, i, input_image, output_dir, max_concurrency):
     image_buffer, crops_to_cut = await download_crops_and_image_async(
         crops, input_image, trace_id=str(i)
     )
     buffers = await crop_with_pil_async(image_buffer, crops_to_cut, trace_id=str(i))
-    await save_image_buffers_async(buffers, output_dir, trace_id=str(i))
+    await save_image_buffers_async(
+        buffers, output_dir, trace_id=str(i), max_concurrency=max_concurrency
+    )

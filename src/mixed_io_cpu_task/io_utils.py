@@ -1,10 +1,11 @@
 import asyncio
+import concurrent.futures
 import logging
 import pathlib
 import uuid
 from io import BytesIO
 from shutil import rmtree
-from typing import Union, List, Tuple
+from typing import Union, List, Tuple, Optional
 import os
 from google.cloud import storage
 
@@ -154,21 +155,29 @@ async def _load_gs_image_async(image_path: str) -> BytesIO:
         return image_buffer
 
 
-def save_image_buffers(buffers: List[BytesIO], save_dir: str, trace_id: str):
+def save_image_buffers(
+    buffers: List[BytesIO], save_dir: str, trace_id: str, max_threads: int = None
+):
     """Saves image buffers to save_dir with random uuid as filename"""
     logger.debug(
         f"Saving {len(buffers)} images to {save_dir}", extra={"trace_id": trace_id}
     )
-    for i, buffer in enumerate(buffers):
-        filename = f"{uuid.uuid4()}.jpg"
-        if save_dir.startswith("gs://"):
-            _save_gs_file(buffer, save_dir, filename)
-        else:
-            _save_local_file(buffer, save_dir, filename)
-        # log every 25 images:
-        if i % 25 == 0:
-            logger.debug(f"Saved crop {i} to storage", extra={"trace_id": trace_id})
-        buffer.close()
+    # use ThreadPoolExecutor to save files in parallel
+    if max_threads is None:
+        max_threads = os.cpu_count() // 2
+    with concurrent.futures.ThreadPoolExecutor(max_threads) as executor:
+        futures = []
+        for buffer in buffers:
+            filename = f"{uuid.uuid4()}.jpg"
+            if save_dir.startswith("gs://"):
+                task = executor.submit(_save_gs_file, buffer, save_dir, filename)
+            else:
+                task = executor.submit(_save_local_file, buffer, save_dir, filename)
+            futures.append(task)
+        for i, future in enumerate(concurrent.futures.as_completed(futures)):
+            future.result()
+            if i % 25 == 0:
+                logger.debug(f"Saved crop {i} to storage", extra={"trace_id": trace_id})
     logger.debug(f"Saved all images", extra={"trace_id": trace_id})
 
 
@@ -201,14 +210,19 @@ async def _save_gs_file_async(buffer: BytesIO, save_dir: str, filename: str) -> 
 
 
 async def save_image_buffers_async(
-    buffers: List[BytesIO], save_dir: str, trace_id: str, save_batch_size: int = 15
+    buffers: List[BytesIO],
+    save_dir: str,
+    trace_id: str,
+    max_concurrency: Optional[int] = None,
 ):
     """Saves image buffers to save_dir with random uuid as filename"""
+    if max_concurrency is None:
+        max_concurrency = os.cpu_count() // 2
     logger.debug(
         f"Saving {len(buffers)} images to {save_dir}", extra={"trace_id": trace_id}
     )
     tasks = []
-    for i, buffer in enumerate(buffers):
+    for buffer in buffers:
         filename = f"{uuid.uuid4()}.jpg"
         if save_dir.startswith("gs://"):
             task = _save_gs_file_async(buffer, save_dir, filename)
@@ -216,9 +230,11 @@ async def save_image_buffers_async(
             task = _save_local_file_async(buffer, save_dir, filename)
         tasks.append(task)
     done_counter = 0
-    async for _ in limit_concurrency(tasks, save_batch_size):
+    async for _ in limit_concurrency(tasks, max_concurrency):
         if done_counter % 25 == 0:
-            logger.debug(f"Saved crop {i} to storage", extra={"trace_id": trace_id})
+            logger.debug(
+                f"Saved crop {done_counter} to storage", extra={"trace_id": trace_id}
+            )
         done_counter += 1
 
     for buffer in buffers:

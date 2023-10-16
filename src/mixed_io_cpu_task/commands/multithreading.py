@@ -5,7 +5,6 @@ import pathlib
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed, ProcessPoolExecutor
 from multiprocessing import Queue, Process
-from threading import Thread
 
 import PIL
 import click
@@ -45,12 +44,14 @@ def logger_queue_handler_initializer(logging_queue: Queue):
     root.debug("worker initialized")
 
 
-def run(i, crops, input_image, output_dir):
+def run(i, crops, input_image, output_dir, max_save_threads):
     image_buffer, crops_to_cut = download_crops_and_image(
         crops, input_image, trace_id=str(i)
     )
     buffers = crop_with_pil(image_buffer, crops_to_cut, trace_id=str(i))
-    save_image_buffers(buffers, output_dir, trace_id=str(i))
+    save_image_buffers(
+        buffers, output_dir, trace_id=str(i), max_threads=max_save_threads
+    )
 
 
 @click.command()
@@ -107,23 +108,28 @@ def multithreading(
 
     if executor == "process":
         Executor = ProcessPoolExecutor
+        max_workers = os.cpu_count() // 2
     else:
         Executor = ThreadPoolExecutor
+        max_workers = os.cpu_count() // 2 + 4
+
     logger.info(
-        f"CPU count: {os.cpu_count()}, will use {os.cpu_count()//2} workers with {Executor.__name__}"
+        f"CPU count: {os.cpu_count()}, will use {max_workers} workers with {Executor.__name__}"
     )
 
     # start benchmark
     start = time.perf_counter()
     # initialize all processes in the executor with the same logging queue
     with Executor(
-        os.cpu_count() // 2,
+        max_workers,
         initializer=logger_queue_handler_initializer,
         initargs=(logging_queue,),
     ) as executor:
         futures = []
         for i in range(num_repeats):
-            future = executor.submit(run, i, crops, input_image, output_dir)
+            future = executor.submit(
+                run, i, crops, input_image, output_dir, max_workers
+            )
             futures.append(future)
         for future in tqdm(as_completed(futures), total=len(futures)):
             future.result()

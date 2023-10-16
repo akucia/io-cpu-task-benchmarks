@@ -56,7 +56,7 @@ def serial(
             crops, input_image, trace_id=str(i)
         )
         buffers = crop_with_pil(image_buffer, crops_to_cut, trace_id=str(i))
-        save_image_buffers(buffers, output_dir, trace_id=str(i))
+        save_image_buffers(buffers, output_dir, trace_id=str(i), max_threads=1)
 
     elapsed = time.perf_counter() - start
     logger.info(
