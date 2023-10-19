@@ -62,10 +62,10 @@ tasks:
   benchmark-and-plot-all-local:
     desc: Run all benchmarks for local inputs and outputs
     cmds:
-      - benchmarks serial IMG_3134.jpeg crops.csv results/ -r 20 -rm
-      - benchmarks asynchronous IMG_3134.jpeg crops.csv results/ -r 20 -rm
-      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 20 -rm -e thread
-      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 20 -rm -e process
+      - benchmarks serial IMG_3134.jpeg crops.csv results/ -r 3 -rm
+      - benchmarks asynchronous IMG_3134.jpeg crops.csv results/ -r 35 -rm
+      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 35 -rm -e thread
+      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 35 -rm -e process
       - benchmarks plot-logs "./*local.log" -p all-local.png
   benchmark-and-plot-all-remote:
     desc: Run all benchmarks for remote inputs and outputs

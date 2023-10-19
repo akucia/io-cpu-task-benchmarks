@@ -219,7 +219,7 @@ async def save_image_buffers_async(
     if max_concurrency is None:
         max_concurrency = os.cpu_count() // 2
     logger.debug(
-        f"Saving {len(buffers)} images to {save_dir}", extra={"trace_id": trace_id}
+        f"Saving {len(buffers)} images to save_dir", extra={"trace_id": trace_id}
     )
     tasks = []
     for buffer in buffers:
