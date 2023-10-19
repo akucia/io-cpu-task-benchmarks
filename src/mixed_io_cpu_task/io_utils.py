@@ -155,7 +155,7 @@ async def _load_gs_image_async(image_path: str) -> BytesIO:
         return image_buffer
 
 
-def save_image_buffers(
+def save_image_buffers_with_threadpool(
     buffers: List[BytesIO], save_dir: str, trace_id: str, max_threads: int = None
 ):
     """Saves image buffers to save_dir with random uuid as filename"""

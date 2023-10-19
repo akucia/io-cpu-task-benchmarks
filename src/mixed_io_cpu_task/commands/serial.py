@@ -10,7 +10,7 @@ from tqdm import trange
 from mixed_io_cpu_task.cropping import crop_with_pil
 from mixed_io_cpu_task.io_utils import (
     download_crops_and_image,
-    save_image_buffers,
+    save_image_buffers_with_threadpool,
     remove_dir,
 )
 
@@ -56,7 +56,9 @@ def serial(
             crops, input_image, trace_id=str(i)
         )
         buffers = crop_with_pil(image_buffer, crops_to_cut, trace_id=str(i))
-        save_image_buffers(buffers, output_dir, trace_id=str(i), max_threads=1)
+        save_image_buffers_with_threadpool(
+            buffers, output_dir, trace_id=str(i), max_threads=1
+        )
 
     elapsed = time.perf_counter() - start
     logger.info(

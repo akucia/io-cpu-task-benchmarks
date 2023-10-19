@@ -42,19 +42,19 @@ tasks:
   benchmark-multithread-local:
     desc: Run benchmark for multithread processing and local inputs and outputs
     cmds:
-      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 20 -rm -e thread
+      - benchmarks multi IMG_3134.jpeg crops.csv results/ -r 20 -rm -e thread
   benchmark-multithread-remote:
     desc: Run benchmark for multithread processing and remote inputs and outputs
     cmds:
-      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e thread
+      - benchmarks multi gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e thread
   benchmark-multiprocess-local:
     desc: Run benchmark for multiprocess processing and local inputs and outputs
     cmds:
-      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 20 -rm -e process
+      - benchmarks multi IMG_3134.jpeg crops.csv results/ -r 20 -rm -e process
   benchmark-multiprocess-remote:
     desc: Run benchmark for multiprocess processing and remote inputs and outputs
     cmds:
-      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e process
+      - benchmarks multi gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 20 -rm -e process
   plot-all-local:
     desc: Plot all local results
     cmds:
@@ -64,14 +64,14 @@ tasks:
     cmds:
       - benchmarks serial IMG_3134.jpeg crops.csv results/ -r 3 -rm
       - benchmarks asynchronous IMG_3134.jpeg crops.csv results/ -r 35 -rm
-      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 35 -rm -e thread
-      - benchmarks multithreading IMG_3134.jpeg crops.csv results/ -r 35 -rm -e process
+      - benchmarks multi IMG_3134.jpeg crops.csv results/ -r 35 -rm -e thread
+      - benchmarks multi IMG_3134.jpeg crops.csv results/ -r 35 -rm -e process
       - benchmarks plot-logs "./*local.log" -p all-local.png
   benchmark-and-plot-all-remote:
     desc: Run all benchmarks for remote inputs and outputs
     cmds:
       - benchmarks serial gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 3 -rm
       - benchmarks asynchronous gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 35 -rm -b 10
-      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 35 -rm -e thread
-      - benchmarks multithreading gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 35 -rm -e process
+      - benchmarks multi gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 35 -rm -e thread
+      - benchmarks multi gs://akuc-machine-learning-vertex-ai-pipelines-bucket/IMG_3134.jpeg gs://akuc-machine-learning-vertex-ai-pipelines-bucket/crops.csv  gs://akuc-machine-learning-vertex-ai-pipelines-bucket/io-tests/results -r 35 -rm -e process
       - benchmarks plot-logs "./*remote.log" -p all-remote.png
